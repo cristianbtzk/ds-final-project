@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0"
+  },
+  "dependencies": {
+    "mongoose": "^7.3.0"
+  }
+}
