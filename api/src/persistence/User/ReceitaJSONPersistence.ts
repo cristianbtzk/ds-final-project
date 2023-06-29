@@ -1,4 +1,4 @@
-import IReceitaPersistence from "./IReceitaPersistence";
+/* import IReceitaPersistence from "./IReceitaPersistence";
 
 import Receita from "../../classes/Receita";
 import fs from 'fs/promises'
@@ -73,4 +73,4 @@ export default class ReceitaJSONPersistence implements IReceitaPersistence {
     const medicacoes = receita.medicacoes.length ? receita.medicacoes.map(m => new Medicacao(m.id, m.nome, m.unidade, m.valor)) : []
     return new Receita(receita.id, receita.data, paciente, medicacoes)
   }
-}
+} */

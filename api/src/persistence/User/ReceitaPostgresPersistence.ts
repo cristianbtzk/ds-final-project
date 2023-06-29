@@ -1,4 +1,4 @@
-import IReceitaPersistence from "./IReceitaPersistence";
+/* import IReceitaPersistence from "./IReceitaPersistence";
 import dbClient from '../../lib/db'
 
 import Receita from "../../classes/Receita";
@@ -85,4 +85,4 @@ export default class ReceitaJSONPersistence implements IReceitaPersistence {
     const query = 'INSERT INTO receita_medicacoes(receitaId, medicacaoId) VALUES ($1, $2)'
     await connection.query(query, [idReceita, idMedicamento])
   }
-}
+} */

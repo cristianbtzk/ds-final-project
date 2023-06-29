@@ -14,16 +14,16 @@ services:
     volumes:
       - ./api:/usr/src/api
     depends_on:
-      - postgres
-  postgres:
-    image: postgres
-    container_name: ds-postgres
+      - mongodb
+  mongodb:
+    container_name: food-order-mongo
+    image: mongo:latest
+    restart: unless-stopped
+    
     ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_DB=ds
-      - POSTGRES_USER=ds
-      - POSTGRES_PASSWORD=ds
+      - 27017:27017
+    volumes:
+      - db:/data/db
     networks:
       - ds-network
   app:
@@ -38,6 +38,10 @@ services:
       - ./client:/usr/src/app
     networks:
       - ds-network
+
+volumes:
+  db:
+
 networks:
   ds-network:
     driver: bridge
