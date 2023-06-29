@@ -14,18 +14,45 @@ services:
     volumes:
       - ./api:/usr/src/api
     depends_on:
-      - mongodb
-  mongodb:
-    container_name: food-order-mongo
+      - food-order-mongo1
+      - food-order-mongo2
+      - food-order-mongo3
+  food-order-mongo1:
+    container_name: food-order-mongo1
     image: mongo:latest
     restart: unless-stopped
-    
+    volumes:
+      - ./scripts/rs-init.sh:/scripts/rs-init.sh
     ports:
       - 27017:27017
-    volumes:
-      - db:/data/db
     networks:
       - ds-network
+    depends_on:
+      - food-order-mongo2
+      - food-order-mongo3
+    links:
+      - food-order-mongo2
+      - food-order-mongo3
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs" ]
+  food-order-mongo2:
+    container_name: food-order-mongo2
+    image: mongo:latest
+    restart: unless-stopped
+    ports:
+      - 27018:27017
+    networks:
+      - ds-network
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs" ]
+  food-order-mongo3:
+    container_name: food-order-mongo3
+    image: mongo:latest
+    restart: unless-stopped
+    ports:
+      - 27019:27017
+    networks:
+      - ds-network
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs" ]
+  
   app:
     build:
       dockerfile: .
