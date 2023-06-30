@@ -1,6 +1,22 @@
 version: '3'
 
 services:
+  ds-mongoservice-image:
+    build:
+      dockerfile: .
+      context: ./mongodb-service
+    image: ds-mongoservice-image
+    container_name: ds-mondoservice1
+    ports:
+      - "3334:3334"
+    networks:
+      - ds-network
+    volumes:
+      - ./mongodb-service:/usr/src/mongodb-service
+    depends_on:
+      - food-order-mongo1
+      - food-order-mongo2
+      - food-order-mongo3
   api:
     build:
       dockerfile: .
