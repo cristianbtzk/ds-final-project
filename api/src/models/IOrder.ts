@@ -6,7 +6,7 @@ export interface IOrder {
   user?: IUser;
   items: {
     title: string;
-    price: string;
+    price: number;
     amount: number;
     itemId: string;
   }[]
