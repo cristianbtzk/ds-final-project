@@ -11,12 +11,6 @@ const userMongoPersistence = new UserMongoPersistence()
 
 export default class UserController {
   async create(request: Request, response: Response) {
-    /* const {
-      username,
-      name,
-      email,
-      password,
-    } = request.body */
     const createUserService = new CreateUserService(userMongoPersistence)
 
     const createdUser = await createUserService.execute(request.body)
@@ -28,9 +22,10 @@ export default class UserController {
     const { id } = request.params
     const deleteUserService = new DeleteUserService(userMongoPersistence)
     const result = await deleteUserService.execute(id)
-    if(!result) {
+    console.log(result)
+    /* if(!result) {
       return response.status(400).send()
-    }
+    } */
     return response.json()
   }
 

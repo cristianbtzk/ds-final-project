@@ -11,6 +11,7 @@ export default class ItemMongoPersistence implements IIItemPersistence {
 
   async remove(id: string): Promise<boolean> {
     const result = await Item.deleteOne({ _id: id })
+    console.log(result)
     return result.deletedCount === 1
   }
 }

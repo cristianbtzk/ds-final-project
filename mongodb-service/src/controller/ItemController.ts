@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 
 import ItemMongoPersistence from "../persistence/Item/ItemMongoPersistence"
-/* import DeleteItemService from "../services/Item/DeleteItemService";
-import ListItemsService from "../services/Item/ListItemsService"; */
 
 const itemMongoPersistence = new ItemMongoPersistence()
 
