@@ -18,6 +18,20 @@ services:
       - food-order-mongo1
       - food-order-mongo2
       - food-order-mongo3
+  facade-api:
+    build:
+      dockerfile: .
+      context: ./facade-api
+    image: ds-facade-image
+    container_name: ds-facade-api
+    ports:
+      - "8000:8000"
+    networks:
+      - ds-network
+    volumes:
+      - ./facade-api:/usr/src/api
+    depends_on:
+      - api
   api:
     build:
       dockerfile: .
