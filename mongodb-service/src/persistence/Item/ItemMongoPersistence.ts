@@ -1,8 +1,7 @@
 import { IItem } from '../../models/IItem';
 import { Item } from '../../models/Item';
-import IIItemPersistence from './IItemPersistence';
 
-export default class ItemMongoPersistence implements IIItemPersistence {
+export default class ItemMongoPersistence {
   async store(user: IItem): Promise<IItem> {
     const newItem = await Item.create(user)
 
@@ -13,5 +12,10 @@ export default class ItemMongoPersistence implements IIItemPersistence {
     const result = await Item.deleteOne({ _id: id })
     console.log(result)
     return result.deletedCount === 1
+  }
+
+  async getAll(): Promise<IItem[]> {
+    const result = await Item.find()
+    return result
   }
 }

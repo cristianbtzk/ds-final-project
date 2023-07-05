@@ -14,16 +14,15 @@ export default class ItemController {
   async excluir(request: Request, response: Response) {
     const { id } = request.params
     const result = await itemMongoPersistence.remove(id)
-    if(!result) {
+    if (!result) {
       return response.status(400).send()
     }
     return response.json()
   }
 
-  /* async listar(request: Request, response: Response) {
-    const listItemsService = new ListItemsService(userMongoPersistence)
+  async getAll(request: Request, response: Response) {
+    const items = await itemMongoPersistence.getAll()
 
-    const users = await listItemsService.execute()
-    return response.json(users)
-  } */
+    return response.json(items)
+  }
 }

@@ -12,9 +12,16 @@ export default class UserController {
 
   async excluir(request: Request, response: Response) {
     const { id } = request.params
-    const user = await userMongoPersistence.remove(id)
+    await userMongoPersistence.remove(id)
 
     return response.json()
+  }
+
+  async getByEmail(request: Request, response: Response) {
+    const { email } = request.params
+    const user = await userMongoPersistence.getByEmail(email)
+
+    return response.json(user)
   }
 
   /* async listar(request: Request, response: Response) {

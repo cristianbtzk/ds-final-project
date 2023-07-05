@@ -6,6 +6,8 @@ const router = Router()
 const orderController = new OrderController()
 
 export default router
-/*   .get('/order', orderController.listar)
- */  .post('/order', orderController.create)
-     .delete('/order/:id', orderController.remove)
+  /*   .get('/order', orderController.listar)*/
+  .post('/order', orderController.create)
+  .delete('/order/:id', orderController.remove)
+  .get('/order/:id', orderController.getById)
+  .get('/order/user/:id', orderController.getByUser)

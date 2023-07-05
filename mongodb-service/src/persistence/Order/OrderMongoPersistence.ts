@@ -13,4 +13,14 @@ export default class OrderMongoPersistence implements IIOrderPersistence {
     const result = await Order.deleteOne({ _id: id })
     return result.deletedCount === 1
   }
+
+  async getByUser(id: string): Promise<IOrder[]> {
+    const result = await Order.find({ userId: id })
+    return result
+  }
+
+  async getById(id: string): Promise<IOrder | null> {
+    const order = await Order.findById(id);
+    return order;
+  }
 }

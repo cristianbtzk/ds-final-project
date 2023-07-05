@@ -1,12 +1,16 @@
 import { IUser } from '../../models/IUser';
 import { User } from '../../models/User';
-import IIUserPersistence from './IUserPersistence';
 
-export default class UserMongoPersistence implements IIUserPersistence {
+export default class UserMongoPersistence {
   async store(user: IUser): Promise<IUser> {
     const newUser = await User.create(user)
 
     return newUser
+  }
+
+  async getByEmail(email: string): Promise<IUser | null> {
+    const user = await User.findOne({ email });
+    return user;
   }
 
   async remove(id: string): Promise<boolean> {
