@@ -13,4 +13,9 @@ export default class ItemMongoPersistence implements IIItemPersistence {
     const { data } = await axios.delete(`http://ds-mongoservice:3334/api/item/${id}`)
     return data
   }
+
+  async getAll(): Promise<IItem[]> {
+    const { data } = await axios.get(`http://ds-mongoservice:3334/api/item`)
+    return data
+  }
 }

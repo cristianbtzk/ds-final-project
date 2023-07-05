@@ -4,6 +4,7 @@ import { IUser } from "../models/IUser";
 import UserMongoPersistence from "../persistence/User/UserMongoPersistence"
 import CreateUserService from "../services/User/CreateUserService"
 import DeleteUserService from "../services/User/DeleteUserService";
+import AuthenticateUserService from "../services/User/AuthenticateUserService";
 /* import DeleteUserService from "../services/User/DeleteUserService";
 import ListUsersService from "../services/User/ListUsersService"; */
 
@@ -27,6 +28,14 @@ export default class UserController {
       return response.status(400).send()
     } */
     return response.json()
+  }
+
+  async authenticate(request: Request, response: Response) {
+    const { email, password } = request.body
+    const authenticateUserService = new AuthenticateUserService(userMongoPersistence)
+    const result = await authenticateUserService.execute(email, password)
+
+    return response.json(result)
   }
 
   /* async listar(request: Request, response: Response) {

@@ -10,8 +10,16 @@ export default class OrderMongoPersistence implements IIOrderPersistence {
 
   async remove(id: string): Promise<boolean> {
     const { data } = await axios.delete(`http://ds-mongoservice:3334/api/order/${id}`)
-    console.log('data')
-    console.log(data)
+    return data
+  }
+
+  async getById(id: string): Promise<IOrder | null> {
+    const { data } = await axios.get(`http://ds-mongoservice:3334/api/order/${id}`)
+    return data
+  }
+
+  async getByUser(id: string): Promise<IOrder[]> {
+    const { data } = await axios.get(`http://ds-mongoservice:3334/api/order/user/${id}`)
     return data
   }
 }

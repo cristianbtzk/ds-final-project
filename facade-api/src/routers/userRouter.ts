@@ -6,7 +6,10 @@ const router = Router()
 export default router
   .post('/user', async (req: Request, res: Response) => {
     const { data } = await axios.post('http://api:3333/api/user', req.body)
-    console.log('aaa')
+    return res.json(data)
+  })
+  .post('/user/authenticate', async (req: Request, res: Response) => {
+    const { data } = await axios.post('http://api:3333/api/user/authenticate', req.body)
     return res.json(data)
   })
   .delete('/user/:id', async (req: Request, res: Response) => {

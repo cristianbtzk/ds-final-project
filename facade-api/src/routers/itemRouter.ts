@@ -15,3 +15,8 @@ export default router
 
     return res.json(data)
   })
+  .get('/item', async (req: Request, res: Response) => {
+    const { data } = await axios.get(`http://api:3333/api/item`)
+
+    return res.json(data)
+  })

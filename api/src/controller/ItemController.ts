@@ -4,6 +4,7 @@ import { IItem } from "../models/IItem";
 import ItemMongoPersistence from "../persistence/Item/ItemMongoPersistence"
 import CreateItemService from "../services/Item/CreateItemService";
 import DeleteItemService from "../services/Item/DeleteItemService";
+import GetAllItemsService from "../services/Item/GetAllItemsService";
 
 const userMongoPersistence = new ItemMongoPersistence()
 
@@ -26,10 +27,12 @@ export default class ItemController {
     return response.json()
   }
 
-  /* async listar(request: Request, response: Response) {
-    const listItemsService = new ListItemsService(userMongoPersistence)
+  async getAll(request: Request, response: Response) {
+    const getAllItemsService = new GetAllItemsService(userMongoPersistence)
+    const items = await getAllItemsService.execute()
+    
+    return response.json(items)
+  }
 
-    const users = await listItemsService.execute()
-    return response.json(users)
-  } */
+  
 }

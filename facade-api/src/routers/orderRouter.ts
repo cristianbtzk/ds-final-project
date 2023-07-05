@@ -15,3 +15,15 @@ export default router
 
     return res.json(data)
   })
+  .get('/order/:id', async (req: Request, res: Response) => {
+    const { id } = req.params
+    const { data } = await axios.get(`http://api:3333/api/order/${id}`)
+
+    return res.json(data)
+  })
+  .get('/order/user/:id', async (req: Request, res: Response) => {
+    const { id } = req.params
+    const { data } = await axios.get(`http://api:3333/api/order/user/${id}`)
+
+    return res.json(data)
+  })
