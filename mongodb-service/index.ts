@@ -17,4 +17,4 @@ app.use(function (err: any, req: any, res: any, next: any) {
   res.status(500).send('Something broke!');
 });
 
-app.listen(3334, () => 'server running on port 3334')
+app.listen(4000, () => 'server running on port 4000')

@@ -9,7 +9,7 @@ services:
     restart: unless-stopped
     container_name: ds-mongoservice1
     ports:
-      - "3334:3334"
+      - "4000:4000"
     networks:
       - ds-network
     volumes:
@@ -39,11 +39,31 @@ services:
     image: ds-image
     container_name: ds-api
     ports:
-      - "3333:3333"
+      - "3334:3337"
     networks:
       - ds-network
     volumes:
       - ./api:/usr/src/api
+    environment:
+      - API=1
+    depends_on:
+      - food-order-mongo1
+      - food-order-mongo2
+      - food-order-mongo3
+  api2:
+    build:
+      dockerfile: .
+      context: ./api
+    image: ds-image
+    container_name: ds-api-2
+    ports:
+      - "3335:3337"
+    networks:
+      - ds-network
+    volumes:
+      - ./api:/usr/src/api
+    environment:
+      - API=2
     depends_on:
       - food-order-mongo1
       - food-order-mongo2
@@ -96,7 +116,18 @@ services:
       - ./client:/usr/src/app
     networks:
       - ds-network
-
+  nginx:
+    restart: always
+    container_name: ds-api-nginx
+    build:
+      context: ./nginx
+    ports:
+        - "3333:80"
+    networks:
+      - ds-network
+    depends_on:
+      - api
+      - api2
 volumes:
   db:
 

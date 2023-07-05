@@ -31,6 +31,8 @@ export default class UserController {
   }
 
   async authenticate(request: Request, response: Response) {
+    console.log('api')
+    console.log(process.env.API)
     const { email, password } = request.body
     const authenticateUserService = new AuthenticateUserService(userMongoPersistence)
     const result = await authenticateUserService.execute(email, password)
