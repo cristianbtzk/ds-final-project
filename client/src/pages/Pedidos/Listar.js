@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import api from "../../services/api"
-import { Box, Button, Container, Flex, Tab, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react"
+import { Box, Button, Flex, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 
 const Listar = () => {
@@ -20,7 +20,7 @@ const Listar = () => {
     })()
   }, [])
 
-  return <>
+  return <Box p="24px">
     <Flex w="425px" alignItems="center" justifyContent="space-between">
       <Text as="p" font>Meus pedidos</Text>
       <Button>
@@ -38,7 +38,7 @@ const Listar = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {orders.length && orders.map(order => <Tr key={order._id}>
+          {orders.length > 0 && orders.map(order => <Tr key={order._id}>
             <Td>{new Date(order.createdAt).toLocaleDateString()}</Td>
             <Td>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(
               order.items.reduce((accum, item) => accum += item.price * item.amount, 0))}</Td>
@@ -47,7 +47,7 @@ const Listar = () => {
         </Tbody>
       </Table>
     </Box>
-  </>
+  </ Box>
 }
 
 export default Listar

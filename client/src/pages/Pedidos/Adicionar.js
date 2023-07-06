@@ -46,7 +46,7 @@ const Pedidos = () => {
     })()
   }, [])
 
-  return <>
+  return <Box p="24px">
     <Box maxW="500px">
       <Text fontSize="24px">Carrinho</Text>
       <Table variant="simple">
@@ -82,7 +82,8 @@ const Pedidos = () => {
         <Select onChange={(e) => {
           setSelectedItem(filteredItems.find(i => i._id === e.target.value))
           setAmount(0)
-        }} value={selectedItem?._id} variant="flushed" outline="none" maxW="425px" placeholder="Selecione um item">
+        }} value={selectedItem?._id} variant="flushed" outline="none" maxW="425px" >
+          <option disabled selected hidden>Selecione um item</option>
           {filteredItems.length && filteredItems.map(item => <option key={item._id} value={item._id}>{item.title}</option>)}
         </Select>
         <Input onChange={(e) => setAmount(Number(e.target.value))} flex="1" value={amount} type="number" placeholder="quantidade" />
@@ -92,7 +93,7 @@ const Pedidos = () => {
       }} mt="8px" type="submit" isDisabled={amount === 0 || !selectedItem}>Adicionar</Button>
 
     </FormControl>
-  </>
+  </Box>
 }
 
 export default Pedidos

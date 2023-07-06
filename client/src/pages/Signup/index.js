@@ -5,18 +5,19 @@ import { Link, useNavigate } from "react-router-dom";
 import api from "../../services/api"
 
 const Home = () => {
+  const [name, setName] = useState('')
+  const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const { data } = await api.post('/user/authenticate', {
-      email, password
+    const { data } = await api.post('/user', {
+      name, username, email, password
     })
-
-    if (data.success) {
-      localStorage.setItem('user', JSON.stringify(data.user))
-      return navigate('orders/all')
+    console.log(data)
+    if (data) {
+      return navigate('/')
     }
   }
 
@@ -42,15 +43,18 @@ const Home = () => {
       w="100%"
     >
       <GridItem bg="#fafafa" p="2rem" boxShadow="-4px 5px 5px 0px rgba(0,0,0,0.22);">
-        <Text fontSize="24px">Entrar</Text>
+        <Text fontSize="24px">Cadastro</Text>
         <FormControl as="form" onSubmit={handleSubmit}>
+          <FormLabel>Nome </FormLabel>
+          <Input type='text' onChange={(e) => setName(e.target.value)} />
+          <FormLabel>Usuário </FormLabel>
+          <Input type='text' onChange={(e) => setUsername(e.target.value)} />
           <FormLabel>Email </FormLabel>
           <Input type='email' onChange={(e) => setEmail(e.target.value)} />
           <FormLabel mt="8px">Senha</FormLabel>
           <Input type='password' onChange={(e) => setPassword(e.target.value)} />
-          <Button mt="8px" type="submit">Entrar</Button>
+          <Button mt="8px" type="submit">Cadastrar</Button>
         </FormControl>
-        <Link to="/signup"><Text mt="8px">Cadastre-se</Text></Link>
 
       </GridItem>
     </Grid>
