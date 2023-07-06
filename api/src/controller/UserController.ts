@@ -1,22 +1,14 @@
 import { Request, Response } from "express";
-import { IUser } from "../models/IUser";
 
 import UserMongoPersistence from "../persistence/User/UserMongoPersistence"
 import CreateUserService from "../services/User/CreateUserService"
 import DeleteUserService from "../services/User/DeleteUserService";
-/* import DeleteUserService from "../services/User/DeleteUserService";
-import ListUsersService from "../services/User/ListUsersService"; */
+import AuthenticateUserService from "../services/User/AuthenticateUserService";
 
 const userMongoPersistence = new UserMongoPersistence()
 
 export default class UserController {
   async create(request: Request, response: Response) {
-    /* const {
-      username,
-      name,
-      email,
-      password,
-    } = request.body */
     const createUserService = new CreateUserService(userMongoPersistence)
 
     const createdUser = await createUserService.execute(request.body)
@@ -27,17 +19,17 @@ export default class UserController {
   async excluir(request: Request, response: Response) {
     const { id } = request.params
     const deleteUserService = new DeleteUserService(userMongoPersistence)
-    const result = await deleteUserService.execute(id)
-    if(!result) {
-      return response.status(400).send()
-    }
+    await deleteUserService.execute(id)
+    
     return response.json()
   }
 
-  /* async listar(request: Request, response: Response) {
-    const listUsersService = new ListUsersService(userMongoPersistence)
+  async authenticate(request: Request, response: Response) {
+    console.log(`Autenticando na api ${process.env.API}`)
+    const { email, password } = request.body
+    const authenticateUserService = new AuthenticateUserService(userMongoPersistence)
+    const result = await authenticateUserService.execute(email, password)
 
-    const users = await listUsersService.execute()
-    return response.json(users)
-  } */
+    return response.json(result)
+  }
 }
